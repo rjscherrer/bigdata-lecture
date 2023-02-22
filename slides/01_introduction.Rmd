@@ -184,8 +184,8 @@ include_graphics("https://mattturck.com/wp-content/uploads/2019/06/2019_Matt_Tur
 - Decentral
 - Group examination: presentation + code (all given the same grades) (40%)
 
-<center> *12 May 2022, 08:15-10:00* </center>
-<center> *19 May 2022, 08:15-10:00* </center>
+<center> *Session 1: TBA* </center>
+<center> *Session 2: TBA* </center>
 
  
 # Approach
