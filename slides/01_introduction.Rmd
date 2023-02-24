@@ -1,7 +1,7 @@
 ---
 title: "Big Data Analytics"
 subtitle: "Lecture 1: Introduction, Big Data Econometrics"
-author: "Prof. Dr. Ulrich Matter"
+author: "Prof. Dr. Lyudmila Grigoryeva (based on course lecture materials of Prof. Dr. Ulrich Matter)"
 output:
   ioslides_presentation:
     css: ../style/ioslides.css
@@ -162,7 +162,7 @@ include_graphics("https://mattturck.com/wp-content/uploads/2019/06/2019_Matt_Tur
 
 ## Examination
 
-- You will be working in *groups of four (or three)* and conduct a *big data analytics project*.
+- You will be working in *groups of three (or two)* and conduct a *big data analytics project*.
 - You will find a *"large" data set (min. 2GB)* to work with and pose *1-2 relevant research questions*.
 - You will use the techniques learned in this course to handle and analyze the large data set in order to provide *empirical answers* to your research question.
 - The output of this exercise has two parts:
@@ -173,7 +173,7 @@ include_graphics("https://mattturck.com/wp-content/uploads/2019/06/2019_Matt_Tur
 
 - Decentral 
 ‐ Group examination (all given the same grades) (60%).
-- Group size: 4 (or 3) students.
+- Group size: 3 (or 2) students.
 - "Take‐home exercises"/research report: Application of basic concepts in R when working with big data. Conceptual questions related to the application.
 
 <center> *Register your group here: * </center>
