@@ -1,8 +1,19 @@
 ---
 title: "Big Data Analytics"
-subtitle: "Lecture 1: Introduction, Big Data Econometrics"
-author: "Prof. Dr. Lyudmila Grigoryeva (based on course lecture materials of Prof. Dr. Ulrich Matter)"
+author: Prof. Dr. Lyudmila Grigoryeva (based on course lecture materials of Prof.
+  Dr. Ulrich Matter)
+subtitle: 'Lecture 1: Introduction, Big Data Econometrics'
 output:
+  beamer_presentation:
+     latex_engine: xelatex
+     pandoc_args: [ "--listings" ]
+     includes:
+          in_header: preamble.tex
+  pdf_document:
+    pandoc_args: --listings
+    includes:
+      in_header: preamble.tex
+  slidy_presentation: default
   ioslides_presentation:
     css: ../style/ioslides.css
     template: ../style/nologo_template.html
@@ -11,7 +22,7 @@ bibliography: ../references/bigdata.bib
 ---
 
 ```{r set-options, echo=FALSE, cache=FALSE, purl=FALSE}
-options(width = 100)
+options(width = 90)
 library(knitr)
 ```
 
@@ -93,8 +104,8 @@ include_graphics("../img/01_its_hard.jpeg")
 
 ## 'Learn Big Data'?
 
-```{r landscape, echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE, fig.cap="'Big Data Landscape (2019)', source: http://mattturck.com"}
-include_graphics("https://mattturck.com/wp-content/uploads/2019/06/2019_Matt_Turck_Big_Data_Landscape_2019_Thumb.png")
+```{r landscape, echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE, fig.cap="'Big Data Landscape (2020)', source: http://mattturck.com"}
+include_graphics("../img/2020-Data-and-AI-Landscape-Preview-1.png")
 ```
 
 
@@ -241,14 +252,14 @@ include_graphics("../img/01_rstudio.png")
 
 [Wickham, Hadley and Dianne Cook and Heike Hofmann (2015): Visualizing statistical models: Removing the blindfold.Statistical Analysis and Data Mining: The ASA Data Science Journal. 8(4):203‐225.](https://onlinelibrary.wiley.com/doi/full/10.1002/sam.11271?scrollTo=references)
 
-[Schwabish, Jonathan A. (2014): An Economistʹs Guide to Visualizing Data.Journal of Economic Perspectives. 28(1):209‐234.](https://pubs.aeaweb.org/doi/pdfplus/10.1257/jep.28.1.209)
+[Schwabish, Jonathan A. (2014): An Economist's Guide to Visualizing Data.Journal of Economic Perspectives. 28(1):209‐234.](https://pubs.aeaweb.org/doi/pdfplus/10.1257/jep.28.1.209)
 
 <center>*Lecture notes and slides will point to further reading...*</center>
 
 
 ## Notes, Slides, Code, et al.
 - StudyNet: slides to download, links to other resources/downloads.
-- [github.com/umatter/bigdata-lecture](https://github.com/umatter/bigdata-lecture)
+- [github.com/lgrigoryeva/bigdata-lecture](https://github.com/lgrigoryeva/bigdata-lecture)
 <!-- - [StudyNet/Canvas]() -->
 
 ## TODO 
@@ -280,14 +291,14 @@ include_graphics("../img/01_rstudio.png")
 
 
 ## The data
-
-```{r}
+\tiny
+```{r, layout="l-body-outset"}
 # import/inspect data
-ga <- read.csv("../data/ga.csv")
-head(ga)
+ga <- read.csv("https://bda-examples.s3.eu-central-1.amazonaws.com/ga.csv")
+kable(head(ga))
 
 ```
-
+\normalsize
 
 ## Approaches based on "traditional" econometrics
 
