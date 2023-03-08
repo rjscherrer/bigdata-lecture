@@ -1,8 +1,10 @@
 ---
 title: "Big Data Analytics"
+author: Prof. Dr. Lyudmila Grigoryeva (based on course lecture materials of Prof.
+  Dr. Ulrich Matter)
 subtitle: 'Lecture 3: Hardware, Computing Resources'
-author: "Prof. Dr. Ulrich Matter"
 output:
+  slidy_presentation: default
   ioslides_presentation:
     css: ../style/ioslides.css
     template: ../style/nologo_template.html
