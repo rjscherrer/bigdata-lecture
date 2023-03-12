@@ -1,11 +1,17 @@
 ---
 title: "Big Data Analytics"
+author: Prof. Dr. Lyudmila Grigoryeva (based on course lecture materials of Prof.
+  Dr. Ulrich Matter)
 subtitle: 'Lecture 2: Programming with (Big) Data'
-author: "Prof. Dr. Ulrich Matter"
+header-includes: 
+  - \usepackage{subfig}
+  - \logo{\includegraphics[width = 1cm]{../img/logo.png}}
 output:
+  beamer_presentation: default
   ioslides_presentation:
     css: ../style/ioslides.css
     template: ../style/nologo_template.html
+  slidy_presentation: default
 logo: ../img/logo.png
 bibliography: ../references/bigdata.bib
 ---
@@ -21,7 +27,7 @@ library(knitr)
 
 ## Group Examinations
 
-- Make sure to build teams of 4 (3).
+- Make sure to build teams of 3 (2).
 - Register your team (and all members):
 - *Team name*: important for handing out team assignments via GitHub Classroom.
 
@@ -68,14 +74,14 @@ system.time(for (i in 1:100) {i + 5})
 ```
 
 ## Measuring performance: speed
-
+\tiny
 ```{r}
 # load package
 library(microbenchmark)
 # how much time does it take to run this loop (exactly)?
 microbenchmark(for (i in 1:100) {i + 5})
 ```
-
+\normalsize
 
 ## Measuring performance: memory
 
@@ -127,7 +133,7 @@ Assess several lines of code/an entire script. Get overview of timing and memory
 
 
 ## Overview/summary 
-
+\tiny
 package | function | purpose
 -------- | ---------- | ---------------------------------------------
 `utils`  | `object.size()` | Provides an estimate of the memory that is being used to store an R object.
@@ -139,6 +145,7 @@ package | function | purpose
 `bench` |  `mark()` | Benchmark a series of functions.
 `profvis`| `profvis()`   | Profiles an R expression and visualizes the profiling data (usage of memory, time elapsed, etc.).
 
+\normalsize
 
 
 # Writing efficient R code
@@ -187,7 +194,7 @@ sqrt_vector_faster <-
 
 
 ## Example to illustrate the problem: for-loops 
-
+\tiny
 ```{r}
 # the different sizes of the vectors we will put into the two functions
 input_sizes <- seq(from = 100, to = 10000, by = 100)
@@ -206,10 +213,13 @@ output_faster <-
                  }
             )
 ```
+\normalsize
 
 ## Example to illustrate the problem: for-loops 
 
-```{r}
+\tiny
+
+```{r, out.width = "50%"}
 # load packages
 library(ggplot2)
 
@@ -228,6 +238,7 @@ ggplot(plotdata, aes(x=input_size, y= time_elapsed)) +
      xlab("No. of elements processed") 
      
 ```
+\normalsize
 
 ## Memory allocation and growing objects: take-away message
 
@@ -244,6 +255,8 @@ ggplot(plotdata, aes(x=input_size, y= time_elapsed)) +
 
 ## Vectorization in basic R functions: illustration
 
+\tiny
+
 ```{r}
 # implementation with vectorization
 sqrt_vector_fastest <- 
@@ -259,14 +272,14 @@ output_fastest <-
                  }
             )
 ```
-
+\normalsize
 
 ## Vectorization in basic R functions: illustration
 
-```{r}
-# load packages
-library(ggplot2)
+\tiny
 
+```{r, out.width = "50%"}
+library(ggplot2)
 # initiate data frame for plot
 plotdata <- data.frame(time_elapsed = c(output_faster, output_fastest),
                        input_size = c(input_sizes, input_sizes),
@@ -275,11 +288,10 @@ plotdata <- data.frame(time_elapsed = c(output_faster, output_fastest),
 
 # plot
 ggplot(plotdata, aes(x=time_elapsed, y=Implementation)) +
-     geom_boxplot(aes(colour=Implementation),
-                          show.legend = FALSE) +
-     theme_minimal(base_size = 18) +
-     xlab("Time elapsed (in seconds)")
+     geom_boxplot(aes(colour=Implementation), show.legend = FALSE) +
+     theme_minimal(base_size = 18) + xlab("Time elapsed (in seconds)")
 ```
+\normalsize
 
 ## Vectorization: take-away message
 
@@ -292,7 +304,7 @@ ggplot(plotdata, aes(x=time_elapsed, y=Implementation)) +
 Looks like vectorization, but actually runs a loop under the hood.
 
 Example: use `sapply` to compute column-wise averages.
-
+\tiny
 ```{r}
 # load and inspect example data (see ?midwest for details)
 data("midwest")
@@ -301,6 +313,7 @@ head(midwest)
 sapply(midwest[, 5:11], mean)
 
 ```
+\normalsize
 
 ## `apply`-type functions in R:  take-away message
 
@@ -341,7 +354,7 @@ obj_addr(b)
 ```
 
 ## Illustration: copy-on-modify
-
+\tiny
 ```{r}
 # check the first element's value
 a[1]
@@ -356,6 +369,7 @@ obj_addr(b)
 
 ```
 The entire vector was copied!
+\normalsize
 
 ## Illustration: modify in place
 
@@ -432,16 +446,18 @@ Query/prepare/join data for analysis. Let's create a point of reference in R.
 
 
 ## What is it for? Illustration
+\tiny
 ```{r echo=FALSE, message=FALSE, purl=FALSE}
 library(DBI)
 library(sqldf)
-con <- dbConnect(RSQLite::SQLite(), "../data/mydb.sqlite")
-econ <- read.csv("../data/economics.csv")
+con <- dbConnect(RSQLite::SQLite(), "data/mydb.sqlite")
+econ <- read.csv("data/economics.csv")
 dbWriteTable(con, "econ", econ, field.types=c("date"="DATE", "pop"="REAL"), overwrite=TRUE )
 ```
+\normalsize
 
 In SQL, we can get exactly the same, with the following command.
-
+\tiny
 ```{sql connection=con}
 SELECT 
 strftime('%Y', `date`)  AS year,
@@ -451,6 +467,7 @@ WHERE "1968-01-01"<=`date`
 GROUP BY year LIMIT 6;
 
 ```
+\normalsize
 
 Key take-away: in R, we instruct the computer what to do in order to get the table we want. In SQL we instruct the computer what table we want.
 
@@ -559,14 +576,14 @@ select * from econ where date = '1968-01-01';
 ## Simple queries
 
 Select all dates and unemployment values of observations with more than 15 million unemployed, ordered by date.
-
+\tiny
 ```{sql connection=con, purl=FALSE}
 select date, 
 unemploy from econ 
 where unemploy > 15000
 order by date;
 ```
-
+\normalsize
 
 ## Joins
 
@@ -575,7 +592,7 @@ Let's extend the previous example by importing an additional table to our `mydb.
 ```{r echo=FALSE, message=FALSE, purl=FALSE}
 library(DBI)
 library(sqldf)
-inflation <- read.csv("../data/inflation.csv")
+inflation <- read.csv("data/inflation.csv")
 dbWriteTable(con, "inflation", inflation, field.types=c("date"="DATE"), overwrite=TRUE )
 ```
 
@@ -603,11 +620,11 @@ CREATE TABLE inflation(
 - We can combine the two data sets at the level of years. 
 
 ## Joins: R as a reference point
-
+\tiny
 ```{r}
 # import data
-econ <- read.csv("../data/economics.csv")
-inflation <- read.csv("../data/inflation.csv")
+econ <- read.csv("data/economics.csv")
+inflation <- read.csv("data/inflation.csv")
 
 # prepare variable to match observations
 econ$year <- lubridate::year(econ$date)
@@ -631,10 +648,10 @@ output<- merge(unemp, inflation[, c("year", "inflation_percent")], by="year")
 head(output)
 
 ```
-
+\normalsize
 
 ## The same table can be created in SQLite.
-
+\tiny
 ```{sql connection=con, max.print=6}
 SELECT 
 strftime('%Y', econ.date)  AS year,
@@ -643,7 +660,7 @@ inflation_percent
 FROM econ INNER JOIN inflation ON year = strftime('%Y', inflation.date)
 GROUP BY year
 ```
-
+\normalsize
 
 ```{r include=FALSE}
 dbDisconnect(con)
